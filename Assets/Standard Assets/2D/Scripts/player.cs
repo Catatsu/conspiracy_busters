@@ -7,6 +7,8 @@ public class player : MonoBehaviour
 	Animator animator;
 	Rigidbody2D rigidbody2d;
 
+    //爆発のﾌﾟﾚﾊﾌﾞを読み込む
+    public GameObject bomb;
 	//スピード設定
 	public float speed = 3;
 
@@ -32,4 +34,14 @@ public class player : MonoBehaviour
 		//アニメーションの切り替えようにステータスを入れる
 		animator.SetFloat("animation_state",x);
 	}
+
+    void OnTriggerEnter2D(Collider2D c)
+    {
+        //爆発させる
+        Instantiate(bomb, transform.position, transform.rotation);
+
+        //ﾌﾟﾚｲﾔｰを削除
+        Destroy(gameObject);
+
+    }
 }
