@@ -10,9 +10,9 @@ public class player : MonoBehaviour
     //爆発のﾌﾟﾚﾊﾌﾞを読み込む
     public GameObject bomb;
     //スピード設定
-    static float fast = 3; //高速
-    static float late = 1.5f; //低速
-	static float speed = fast; //playerの速度(初期高速
+    public float fast = 3; //高速
+    public float late = 1.5f; //低速
+    public float speed; //playerの速度
 
 	void Start ()
 	{
@@ -20,7 +20,9 @@ public class player : MonoBehaviour
 		animator = GetComponent<Animator>();
 		rigidbody2d = GetComponent<Rigidbody2D>();
 
-	}
+        //speed初期値設定(初期高速
+        speed = fast;
+    }
 
 	// Update is called once per frame
 	void Update () 
