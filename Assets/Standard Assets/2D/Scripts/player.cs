@@ -9,8 +9,10 @@ public class player : MonoBehaviour
 
     //爆発のﾌﾟﾚﾊﾌﾞを読み込む
     public GameObject bomb;
-	//スピード設定
-	public float speed = 3;
+    //スピード設定
+    static float fast = 3; //高速
+    static float late = 1.5f; //低速
+	static float speed = fast; //playerの速度(初期高速
 
 	void Start ()
 	{
@@ -28,6 +30,17 @@ public class player : MonoBehaviour
 
 		//移動する向きを求める
 		Vector2 direction = new Vector2 (x, y).normalized;
+
+        //現在の速度を設定する
+        if(Input.GetKey(KeyCode.LeftShift) && speed == fast)
+        {
+            //高速移動中に左ｼﾌﾄが押された場合、低速にする
+            speed = late;
+        }else if(!Input.GetKey(KeyCode.LeftShift) && speed == late)
+        {
+            //低速移動中に左ｼﾌﾄが離された場合、高速にする
+            speed = fast;
+        }
 		//移動する向きとスピードを代入する
 		rigidbody2d.velocity = direction * speed;
 
