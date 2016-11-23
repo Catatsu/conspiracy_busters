@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 
+    //ﾃﾞﾊﾞｯｸ用ﾃｷｽﾄ
+    public DebugText debugtext;
+
     Rigidbody2D rigidbody2d;
     //自分の位置(x,y)
     public float bullet_x;
@@ -44,7 +47,6 @@ public class Bullet : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        
 
         switch (type)
         {
@@ -68,19 +70,23 @@ public class Bullet : MonoBehaviour {
                     //右回り旋回角度上限のﾍﾞｸﾄﾙを求める
                     float rad = Mathf.PI / 180 * theta;
                     float x2 = Mathf.Cos(rad) * direction_old.x - Mathf.Sin(rad) * direction_old.y;
-                    float y2 = Mathf.Sin(rad) * direction_old.x - Mathf.Cos(rad) * direction_old.y;
+                    float y2 = Mathf.Sin(rad) * direction_old.x + Mathf.Cos(rad) * direction_old.y;
 
                     //自機方向と旋回角度上限のどちらに曲がるかを決める
                     if (direction_old.x * direction.x + direction_old.y * direction.y >= direction_old.x * x2 + direction_old.y * y2)
                     {
                         //自機方向が旋回可能範囲内の場合、自機方向に曲がるため、追加処理をしない?
+                        //debug
+                        debugtext.GetComponent<DebugText>().text = 1;
                     }
                     else
                     {
+                        //debug
+                        debugtext.GetComponent<DebugText>().text = 2;
                         //自機方向が旋回可能範囲外の場合
                         //左回り旋回角度上限の速度ﾍﾞｸﾄﾙを求める
                         float x3 = Mathf.Cos(rad) * direction_old.x + Mathf.Sin(rad) * direction_old.y;
-                        float y3 = Mathf.Sin(rad) * direction_old.x + Mathf.Cos(rad) * direction_old.y;
+                        float y3 = -Mathf.Sin(rad) * direction_old.x + Mathf.Cos(rad) * direction_old.y;
 
                         //弾から自機への相対位置ﾍﾞｸﾄﾙ(px,py)を求める
                         float px = target_x - bullet_x;
